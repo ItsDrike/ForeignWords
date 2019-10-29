@@ -1,21 +1,20 @@
 import random
-import operator
 from os import system
 
 words = {
     # 'akutny': 'acute',
-    # 'hanba': 'shame',
+    'hanba': 'shame',
     # 'sok, sokovat': 'shock',
-    # '(vy)riesit': 'solve',
+    '(vy)riesit': 'solve',
     # 'ulozit, uchovat': 'store',
-    # 'trpiet': 'suffer',
+    'trpiet': 'suffer',
     # 'operacia': 'surgery',
     # 'konat sa': 'take place',
     # 'clovek zraneny alebo zabity vo vojde, alebo pri nehode': 'casualty',
     # 'zahanbeny': 'ashamed',
     # 'sanitka': 'ambulance',
     # 'oznam': 'announcement',
-    # 'zakazat (co)': 'ban',
+    'zakazat (co)': 'ban',
     # 'kamarat': 'comrade',
     # 'konflikt': 'conflict',
     # 'skluceny': 'depressed',
@@ -30,64 +29,63 @@ words = {
     # 'nastastie': 'fortunately',
     # 'boj': 'battle',
     # 'stav nudze': 'emergency',
+    # 'zmysel pre humor': 'sense of humor',
+    # 'strata pamati': 'amnesia',
+    # 'poteseny, pobaveny': 'amused',
+    # 'vyrocie': 'anniversary',
+    # 'vychov(av)at': 'bring up',
+    # 'oslava': 'celebration',
+    # 'urobit zaver, zhrnut': 'conclude',
+    # 'poskodit': 'damage',
+    # 'pochybnost': 'doubt',
+    # 'dramaticky, napinavy': 'dramatic',
+    # 'v rozpakoch': 'embarrassed',
+    # 'odovzdat, venovat': 'give away',
+    # 'odist': 'go off',
+    # 'urazit (koho)': 'insult',
+    # 'ziarlivy': 'jealous',
+    # 'posudzovat': 'judge',
+    # 'zachranar': 'paramedic',
+    # 'mak': 'poppy',
+    # 'hrdy': 'proud',
+    # 'uvedomit si': 'realise',
+    # 'spomenut si, rozpametat': 'recall',
+    # 'sviatok, v ktorom si v Britanii primominaju vojakov, ktori zahynuli vo vojde': 'remembrance day',
+    # 'uviest situaciu': 'set the scene',
+    # 'v bezvedomi': 'unconscious',
+    # 'nespravodlivy': 'unfair',
+    # 'znepokojeny': 'upset',
 
 
-    'obavat sa (coho)': 'afraid',
-    'strata pamati': 'amnesia',
-    'poteseny, pobaveny': 'amused',
-    'vyrocie': 'anniversary',
-    'zurit sa, zlyhat': 'break down',
-    'vychov(av)at': 'bring up',
-    'oslava': 'celebration',
-    'pripominat si': 'commemorate',
-    'urobit zaver, zhrnut': 'conclude',
-    'poskodit': 'damage',
-    'nadseny/poteseny': 'delighted',
-    'napriek (comu)': 'despite',
-    'sklamany': 'disappointed',
-    'pochybnost': 'doubt',
-    'dramaticky, napinavy': 'dramatic',
-    'v rozpakoch': 'embarrassed',
-    'zavist': 'envy',
-    'odovzdat, venovat': 'give away',
-    'odist': 'go off',
-    'dojaty': 'impressed',
-    'trvat na (com)': 'insist on',
-    'urazit (koho)': 'insult',
-    'nahnevany, podrazdeny': 'irritated',
-    'ziarlivy': 'jealous',
-    'posudzovat': 'judge',
-    'zachranar': 'paramedic',
-    'spokojny': 'pleased',
-    'mak': 'poppy',
-    'hrdy': 'proud',
-    'obliect si': 'put on',
-    'uvedomit si': 'realise',
-    'spomenut si, rozpametat': 'recall',
-    'spoznat': 'recognise',
-    'uzdravenie': 'recovery',
-    'zmiernit, ulahcit': 'relieve',
-    'sviatok, v ktorom si v Britanii primominaju vojakov, ktori zahynuli vo vojde': 'remembrance day',
-    'pripomenut si': 'remind',
-    'zachranit': 'rescue',
-    'spokojny': 'satisfied',
-    'zmysel pre humor': 'sense of humor',
-    'uviest situaciu': 'set the scene',
-    'objavit sa': 'turn up',
-    'v bezvedomi': 'unconscious',
-    'nespravodlivy': 'unfair',
-    'znepokojeny': 'upset',
+    # 'obavat sa (coho)': 'afraid',
+    # 'zurit sa, zlyhat': 'break down',
+    # 'pripominat si': 'commemorate',
+    # 'nadseny/poteseny': 'delighted',
+    # 'napriek (comu)': 'despite',
+    # 'sklamany': 'disappointed',
+    # 'zavist': 'envy',
+    # 'dojaty': 'impressed',
+    # 'trvat na (com)': 'insist on',
+    # 'nahnevany, podrazdeny': 'irritated',
+    # 'spokojny': 'pleased',
+    # 'obliect si': 'put on',
+    # 'spoznat': 'recognise',
+    # 'uzdravenie': 'recovery',
+    # 'zmiernit, ulahcit': 'relieve',
+    # 'pripomenut si': 'remind',
+    # 'zachranit': 'rescue',
+    # 'spokojny': 'satisfied',
+    # 'objavit sa': 'turn up',
+
 }
 
+initial_words = words.copy()
+initial_word_amt = len(words)
 
-def sort_by_values_len(dct):
-    def rotate_list(l, n):
-        return l[n:] + l[:n]
 
-    temp_dct = {key: len(dct[key]) for key in dct}
-    inverted_sorted_dct = sorted(
-        temp_dct.items(), key=operator.itemgetter(1))
-    sorted_list = [i for i in reversed(inverted_sorted_dct)]
+def sort_dict_by_list_len(dct):
+    sorted_list = sorted(
+        dct.items(), key=lambda x: len(x[1]), reverse=True)
     sorted_dict = {element[0]: dct[element[0]] for element in sorted_list}
     return sorted_dict
 
@@ -126,10 +124,20 @@ while len(words) > 0:
             f'Incorrect -> {words[word]} ({ln} mistakes logged)')
         system('cls')
 else:
+    problem_words_no_blanks = {key: val for key,
+                               val in problem_words.items() if val != []}
+    sorted_problem_words_no_blanks = sort_dict_by_list_len(
+        problem_words_no_blanks).items()
+    success_rate = 1 - len(problem_words_no_blanks.keys()) / initial_word_amt
+
     print('You\'re Awesome, You did it.')
-    print(f'You made {mistakes} mistakes')
-    problem_words1 = {key: val for key,
-                      val in problem_words.items() if val != []}
-    print(f'Your problem words:')
-    for key, val in sort_by_values_len(problem_words1).items():
-        print(f'{key} -> {val}')
+    print(
+        f'Success rate: {success_rate*100}% ({initial_word_amt - len(problem_words_no_blanks.keys())}/{initial_word_amt}, {len(problem_words_no_blanks.keys())} more word(s) to learn) ')
+    print(f'You made {mistakes} total mistakes')
+
+    if len(sorted_problem_words_no_blanks) > 0:
+        print(f'Your problem words [{len(sorted_problem_words_no_blanks)}]:')
+        for key, val in sorted_problem_words_no_blanks:
+            print(f'    {key} -> {initial_words[key]} ({len(val)}: {val})')
+    else:
+        print('Yey, You have no problem words - You seem to know it all')
